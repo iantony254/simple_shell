@@ -12,6 +12,7 @@ int main(void)
 	char *args[2];
 
 	while (1)
+	{
 		/*Display prompt*/
 		printf("th3_m@tr!x_$ ");
 
@@ -46,5 +47,6 @@ int main(void)
 			int status;
 
 			waitpid(pid, &status, 0);
+	}
 	return (0);
 }
