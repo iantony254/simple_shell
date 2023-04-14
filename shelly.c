@@ -20,7 +20,7 @@ int main(void)
 		{
 			/*Handle end of file condition*/
 			printf("\n");
-			break;
+				break;
 		}
 
 		/* Remove trailing newline character*/
