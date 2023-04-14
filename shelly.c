@@ -6,11 +6,11 @@
 
 #define MAX_INPUT_LENGTH 1024
 
-int main(void) 
+int main(void)
 {
 	char input[MAX_INPUT_LENGTH];
 	char *args[2];
-	
+
 	while (1)
 	{
 		/*Display prompt*/
@@ -35,24 +35,18 @@ int main(void)
 		pid_t pid = fork();
 
 		if (pid == -1)
-		{
 			perror("fork");
 			exit(EXIT_FAILURE);
-		}
 		else if (pid == 0)
-		{
 			/*Child process*/
 			execvp(args[0], args):
 			/*If execvp returns, there was an error*/
 			printf("Error: command not found\n");
 			exit(EXIT_FAILURE);
-		}
 		else
-		{
 			/*Parent process*/
 			int status;
 			waitpid(pid, &status, 0);
-		}
 	}
 	return 0;
 }
