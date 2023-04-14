@@ -17,10 +17,11 @@ int main(void)
 
 		/*Read input from user*/
 		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
+		{
 			/*Handle end of file condition*/
 			printf("\n");
-		break;
-
+			break;
+		}
 		/* Remove trailing newline character*/
 		input[strcspn(input, "\n")] = '\0';
 
