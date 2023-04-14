@@ -19,7 +19,7 @@ int main(void)
 		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
 		{
 			// Handle end of file condition
-			printf("\n);
+			printf("\n");
 			break;
 		}
 		/* Remove trailing newline character*/
