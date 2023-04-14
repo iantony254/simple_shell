@@ -10,6 +10,7 @@ int main(void)
 {
 	char input[MAX_INPUT_LENGTH];
 	char *args[2];
+	
 	while (1)
 	{
 		/*Display prompt*/
@@ -18,10 +19,11 @@ int main(void)
 		/*Read input from user*/
 		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
 		{
-			// Handle end of file condition
+			/*Handle end of file condition*/
 			printf("\n");
 			break;
 		}
+
 		/* Remove trailing newline character*/
 		input[strcspn(input, "\n")] = '\0';
 
@@ -29,8 +31,9 @@ int main(void)
 		args[0] = input;
 		args[1] = NULL;
 
-		// Fork process to execute command
+		/*Fork process to execute command*/
 		pid_t pid = fork();
+
 		if (pid == -1)
 		{
 			perror("fork");
