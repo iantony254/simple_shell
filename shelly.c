@@ -39,7 +39,7 @@ int main(void)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
 			/*Child process*/
-			execvp(args[0], args):
+			execvp(args[0], args);
 			/*If execvp returns, there was an error*/
 			printf("Error: command not found\n");
 			exit(EXIT_FAILURE);
@@ -48,5 +48,5 @@ int main(void)
 			int status;
 			waitpid(pid, &status, 0);
 	}
-	return 0;
+	return (0);
 }
