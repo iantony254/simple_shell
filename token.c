@@ -23,5 +23,5 @@ int tokenize(char *input, char **args)
 		token = strtok(NULL, " ");
 	}
 	args[argc] = NULL;
-	return argc;
+	return (argc);
 }
