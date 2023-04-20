@@ -23,8 +23,10 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		args[0] = input;
-		args[1] = NULL;
+		char *tkn = strtok(input, " ");
+		int x=0;
+		char val;
+		val = token(*tkn,x);
 
 		/*Fork process to execute command*/
 		pid_t pid = fork();
