@@ -23,8 +23,8 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		char *tkn = strtok(input, " ");
-		int x=0;
+		*tkn = strtok(input, " ");
+		x=0;
 		char val;
 		val = token(*tkn,x);
 
