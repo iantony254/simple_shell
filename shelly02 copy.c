@@ -1,12 +1,12 @@
 #include "shelly.h"
 
 #define MAX_INPUT_LENGTH 1024
-#define MAX_ARGS 64
+
 
 int main(void)
 {
 	char input[MAX_INPUT_LENGTH];
-	char *args[MAX_ARGS];
+	
 
 	while (1)
 	{
@@ -24,16 +24,7 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		char *token 
-		*token = strtok(input, " ");
-		int i = 0;
-		while (token != NULL && i < MAX_ARGS - 1)
-		{
-			args[i] = token;
-			i++;
-			token = strtok(NULL, " ");
-		}
-		args[i] = NULL;
+		char tkn_val=_token();
 
 		/*Fork process to execute command*/
 		pid_t pid = fork();
