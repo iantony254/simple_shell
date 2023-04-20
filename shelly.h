@@ -12,6 +12,6 @@
 #include <string.h>
 #include <sys/wait.h>
 
-char **parse_command(char *input);
+int tokenize(char *input, char **args);
 
 #endif /* SHELLY_H */

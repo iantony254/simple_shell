@@ -22,7 +22,12 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		char **args = parse_command(input);
+		int argc = tokenize(input, args);
+		if argc == -1
+		{
+			printf("Error: Too many Arguments!\n");
+			continue;
+		}
 
 		/*Fork process to execute command*/
 		pid_t pid = fork();

@@ -1,28 +1,24 @@
-#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
-#define MAX_ARGS 16
+#define MAX_ARGS 10
+#define MAX_ARG_LENGTH 1024
 
-char **parse_command(char *input)
-{
-    char **args = malloc((MAX_ARGS + 1) * sizeof(char *));
-    if (args == NULL)
-    {
-        perror("malloc");
-        exit(EXIT_FAILURE);
+int tokenize(char *input, char **args) {
+    int argc = 0;
+
+    // Tokenize input into command and arguments
+    char *token = strtok(input, " ");
+    while (token != NULL) {
+        if (argc >= MAX_ARGS) {
+            // Too many arguments
+            return -1;
+        }
+        args[argc] = token;
+        argc++;
+        token = strtok(NULL, " ");
     }
-    char *token;
-    int i = 0;
+    args[argc] = NULL;
 
-    for (token = strtok(input, " "); token != NULL; token = strtok(NULL, " "))
-    {
-        args[i++] = token;
-        if (i == MAX_ARGS)
-        {
-            break;
-        } 
-    }
-    args[i] = NULL;
-
-    return (args);
-}   
+    return argc;
+}
