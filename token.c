@@ -2,7 +2,7 @@
 
 #define MAX_ARGS 64
 
-void _token()
+void token()
 { 
     char *args[MAX_ARGS];
 

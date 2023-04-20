@@ -24,7 +24,7 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		char tkn_val=_token();
+		char tkn_val = token();
 
 		/*Fork process to execute command*/
 		pid_t pid = fork();
