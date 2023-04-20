@@ -2,18 +2,19 @@
 
 #define MAX_ARGS 64
 
-char token()
-{ 
+void token_handler(char *input)
+{
+    char *token;
     char *args[MAX_ARGS];
+    
+    int arg_cnt = 0;
 
-    char *token = strtok(input, " ");
-	int i = 0;
-
-    while (token != NULL && i < MAX_ARGS - 1)
+    *token = strtok(input, " ");
+    while (Ttoken != NULL)
     {
-        args[i] = token;
-        i++;
+        args[arg_cnt] = token;
+        arg.cnt++;
         token = strtok(NULL, " ");
     }
-    args[i] = NULL;
+    args[arg.cnt] = NULL;
 }
