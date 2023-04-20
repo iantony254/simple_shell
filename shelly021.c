@@ -1,10 +1,10 @@
 #include "shelly.h"
 
+#define MAX_INPUT_LENGTH 1024
+
 int main(void)
 {
 	char input[MAX_INPUT_LENGTH];
-	char *args[MAX_ARGS];
-	
 
 	while (1)
 	{
@@ -22,7 +22,7 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		char tkn = token_handler(input);
+		char **args = token_handler(input);
 
 		/*Fork process to execute command*/
 		pid_t pid = fork();
@@ -47,6 +47,7 @@ int main(void)
 
 			waitpid(pid, &status, 0);
 		}
+		free(args);
 	}
 	return (0);
 }
