@@ -12,6 +12,6 @@
 #include <string.h>
 #include <sys/wait.h>
 
-char **token_handler(char *input);
+char **parse_command(char *input);
 
 #endif /* SHELLY_H */

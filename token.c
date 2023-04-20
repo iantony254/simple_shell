@@ -2,7 +2,7 @@
 
 #define MAX_ARGS 16
 
-char **token_handler(char *input)
+char **parse_command(char *input)
 {
     char **args = malloc((MAX_ARGS + 1) * sizeof(char *));
     if (args == NULL)
