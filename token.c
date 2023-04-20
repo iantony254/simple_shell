@@ -1,4 +1,5 @@
-#include "shelly.h"
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_ARGS 16
 
