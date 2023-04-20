@@ -13,6 +13,6 @@
 #include <sys/wait.h>
 
 
-char token(char *token, int i);
+/* char token(char *token, int i); */
 
 #endif /* SHELLY_H */

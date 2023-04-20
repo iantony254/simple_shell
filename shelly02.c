@@ -5,7 +5,7 @@
 int main(void)
 {
 	char input[MAX_INPUT_LENGTH];
-
+	char *args[MAX_ARGS];
 
 	while (1)
 	{
@@ -23,9 +23,15 @@ int main(void)
 		input[strcspn(input, "\n")] = '\0';
 
 		/*Tokenize input into command and arguments*/
-		*tkn = strtok(input, " ");
-		x=0;
-		val = _token(*tkn,x);
+		char *token = strtok(input, " ");
+		int i = 0;
+		while (token != NULL && i < MAX_ARGS - 1)
+		{
+			args[i] = token;
+			i++;
+			token = strtok(NULL, " ");
+		}
+		args[i] = NULL;
 
 		/*Fork process to execute command*/
 		pid_t pid = fork();
