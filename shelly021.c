@@ -25,7 +25,7 @@ int main(void)
 
 		/*Tokenize input into command and arguments*/
 		int argc = tokenize(input, args);
-		if argc == -1
+		if (argc == -1)
 		{
 			printf("Error: Too many Arguments!\n");
 			continue;
