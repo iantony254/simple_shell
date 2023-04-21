@@ -1,5 +1,5 @@
-#ifndef SHELLY_H
-#define SHELLY_H
+#ifndef SHELLY021_H
+#define SHELLY021_H
 
 
 #include <stdio.h>
@@ -11,9 +11,6 @@
  * Desc: Header file containing prototypes for all functions
  */
 
-
-
-
 int tokenize(char *input, char **args);
 
-#endif /* SHELLY_H */
+#endif /* SHELLY021_H */
