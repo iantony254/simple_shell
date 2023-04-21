@@ -6,6 +6,7 @@
 int main(void)
 {
 	char input[MAX_INPUT_LENGTH];
+	char *args [MAX_ARGS + 1];
 
 	while (1)
 	{
