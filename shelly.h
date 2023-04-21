@@ -1,5 +1,5 @@
-#ifndef SHELLY021_H
-#define SHELLY021_H
+#ifndef SHELLY_H
+#define SHELLY_H
 
 
 #include <stdio.h>
@@ -13,4 +13,4 @@
 
 int tokenize(char *input, char **args);
 
-#endif /* SHELLY021_H */
+#endif /* SHELLY_H */
