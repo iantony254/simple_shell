@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include "token.c"
 
 int tokenize(char *input, char **args);
 
