@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <string.h>
+/* #include <stdio.h> */
+/* #include <string.h> */
+
+#include "shelly.h"
 
 #define MAX_ARGS 10
 #define MAX_ARG_LENGTH 1024
