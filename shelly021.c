@@ -54,7 +54,6 @@ int main(void)
 
 			waitpid(pid, &status, 0);
 		}
-		free(args);
 	}
 	return (0);
 }
