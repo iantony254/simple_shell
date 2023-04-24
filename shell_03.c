@@ -36,6 +36,26 @@ int main(void) {
     return 0;
 }
 
+char **parse_command(char *input) {
+    char **args = malloc((MAX_ARGS + 1) * sizeof(char *));
+    if (args == NULL) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+
+    char *token;
+    int i = 0;
+    for (token = strtok(input, " "); token != NULL; token = strtok(NULL, " ")) {
+        args[i++] = token;
+        if (i == MAX_ARGS) {
+            break;
+        }
+    }
+    args[i] = NULL;
+
+    return args;
+}
+
 void execute_command(char *command, char *path) {
     char *args[MAX_INPUT_LENGTH];
     char *token;
@@ -79,4 +99,3 @@ void execute_command(char *command, char *path) {
     // Command not found in PATH
     printf("Error: command not found\n");
 }
-
