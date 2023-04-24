@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
 #include "shell.h"
 
 #define MAX_INPUT_LENGTH 1024
@@ -11,7 +16,7 @@ int main(void) {
         printf("$ ");
 
         // Read input from user
-        if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL){
+        if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL) {
             // Handle end of file condition
             printf("\n");
             break;
@@ -24,5 +29,50 @@ int main(void) {
         execute_command(input, path);
     }
 
-    return (0);
+    return 0;
 }
+
+void execute_command(char *command, char *path) {
+    char *args[MAX_INPUT_LENGTH];
+    char *token;
+
+    // Tokenize command into arguments
+    token = strtok(command, " ");
+    int i = 0;
+    while (token != NULL) {
+        args[i] = token;
+        token = strtok(NULL, " ");
+        i++;
+    }
+    args[i] = NULL;
+
+    // Check if command exists in PATH
+    char *path_entry;
+    while ((path_entry = strsep(&path, ":")) != NULL) {
+        char cmd_path[MAX_INPUT_LENGTH];
+        snprintf(cmd_path, sizeof(cmd_path), "%s/%s", path_entry, args[0]);
+        if (access(cmd_path, X_OK) == 0) {
+            // Command exists in PATH, fork process to execute command
+            pid_t pid = fork();
+            if (pid == -1) {
+                perror("fork");
+                exit(EXIT_FAILURE);
+            } else if (pid == 0) {
+                // Child process
+                execv(cmd_path, args);
+                // If execv returns, there was an error
+                perror("execv");
+                exit(EXIT_FAILURE);
+            } else {
+                // Parent process
+                int status;
+                waitpid(pid, &status, 0);
+                return;
+            }
+        }
+    }
+
+    // Command not found in PATH
+    printf("Error: command not found\n");
+}
+
