@@ -1,9 +1,11 @@
 #include "shelly.h"
 #include <sys/wait.h>
 #include "token.c"
-#include "env-environ.c"
+
 
 #define MAX_INPUT_LENGTH 1024
+
+extern char **environ;  /* Declare external environ variable */
 
 int main(void)
 {
@@ -33,19 +35,24 @@ int main(void)
 			exit(EXIT_SUCCESS);
 		}
 
+		/* Check if the input given is the "env" command */
+		if (strcmp(input, "env") == 0)
+		{
+			/* Print Environment Variables */
+			char **env = environ;
+			while (*env)
+			{
+				printf("%s\n", *env);
+				env++;
+			}
+			continue;
+		}
+		
 		/*Tokenize input into command and arguments*/
 		int argc = tokenize(input, args);
 		if (argc == -1)
 		{
 			printf("Error: Too many Arguments!\n");
-			continue;
-		}
-		
-		/* Check if command is the "env" */
-		if (strcmp(args[0], "env") == 0)
-		{
-			/* Call the env built in */
-			env_builtin();
 			continue;
 		}
 		
@@ -64,7 +71,7 @@ int main(void)
 			/*If execvp returns, there was an error*/
 			printf("Error: command not found\n");
 			exit(EXIT_FAILURE);
-			}
+		}
 		else
 		{
 			/*Parent process*/
@@ -74,14 +81,4 @@ int main(void)
 		}
 	}
 	return (0);
-}
-void env_builtin(void)
-{
-	/* Loop through the environment variables and print them */
-	char **env = environ;
-	while (*env != NULL)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
 }
