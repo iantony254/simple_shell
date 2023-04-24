@@ -1,7 +1,7 @@
 #include "shelly.h"
 #include <sys/wait.h>
 #include "token.c"
-
+#include "env-environ.c"
 
 #define MAX_INPUT_LENGTH 1024
 
