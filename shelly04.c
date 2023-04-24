@@ -1,7 +1,7 @@
 #include "shelly.h"
 #include <sys/wait.h>
 #include "token.c"
-#include "env-environ.c"
+
 
 #define MAX_INPUT_LENGTH 1024
 
@@ -74,4 +74,14 @@ int main(void)
 		}
 	}
 	return (0);
+}
+void env_builtin(void)
+{
+	/* Loop through the environment variables and print them */
+	char **env = environ;
+	while (*env != NULL)
+	{
+		printf("%s\n", *env);
+		env++;
+	}
 }
