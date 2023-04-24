@@ -1,23 +1,12 @@
 #include "shelly.h"
 
-extern char **environ;
-
-int main(int argc, char *argv[])
+void env_builtin(void)
 {
-	if (argc != 1)
-	{
-		/* Invalid Usage */
-		fprintf(stderr, "Usage: %s\n", argv [0]);
-		exit(EXIT_FAILURE);
-	}
-
-	/* Loop through the environment variables */
+	/* Loop through the environment variables and print them */
 	char **env = environ;
 	while (*env != NULL)
 	{
-		printf("%s/n", *env);
+		printf("%s\n", *env);
 		env++;
 	}
-
-	return (0);
 }

@@ -13,7 +13,7 @@ int main(void)
 	while (1)
 	{
 		/*Display prompt*/
-		printf("th3_m@tr!x_$ ");
+		printf("th3_m@tr!x_$: ");
 
 		/*Read input from user*/
 		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
