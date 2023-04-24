@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/wait.h>
 #include "shell.h"
+#include "command.h"
 
 #define MAX_INPUT_LENGTH 1024
 
@@ -24,6 +25,9 @@ int main(void) {
 
         // Remove trailing newline character
         input[strcspn(input, "\n")] = '\0';
+
+        // Parse command and arguments
+        char **args = parse_command(input);
 
         // Execute command
         execute_command(input, path);
