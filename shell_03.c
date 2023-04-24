@@ -7,6 +7,7 @@
 #include "command.h"
 
 #define MAX_INPUT_LENGTH 1024
+#define MAX_ARGS 16
 
 int main(void) {
     char input[MAX_INPUT_LENGTH];
@@ -31,8 +32,10 @@ int main(void) {
 
         // Execute command
         execute_command(input, path);
-    }
 
+        // Free memory allocated by parse_command
+        free(args);
+    }
     return 0;
 }
 
