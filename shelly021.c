@@ -83,7 +83,7 @@ if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
 printf("\n");
 break;
 }
-handle_input(input)
+handle_input(input);
 }
 return (0);
 }
