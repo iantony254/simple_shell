@@ -16,6 +16,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+extern char **environ;
 
 int tokenize(char *input, char **args);
 

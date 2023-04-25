@@ -1,18 +1,28 @@
 #include "shelly.h"
 
-extern char **environ;
+/**
+ * main - Entry point of the program.
+ * This program implements the env built-in,
+ * that prints the current environment.
+ *
+ * @argc: The number of command-line arguments.
+ * @argv: An array of pointers to the command-line arguments.
+ *
+ * Return:Always 0.
+ */
 
 int main(int argc, char *argv[])
 {
 	if (argc != 1)
 	{
 		/* Invalid Usage */
-		fprintf(stderr, "Usage: %s\n", argv [0]);
+		fprintf(stderr, "Usage: %s\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 
 	/* Loop through the environment variables */
 	char **env = environ;
+
 	while (*env != NULL)
 	{
 		printf("%s/n", *env);
