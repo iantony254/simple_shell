@@ -1,5 +1,7 @@
 #include "shelly.h"
 
+#define MAX_INPUT_LENGTH 1024
+
 /**
  * read_input - Reads input from stdin and removes trailing newline character.
  *

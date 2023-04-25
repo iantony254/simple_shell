@@ -1,6 +1,8 @@
 #include "shelly.h"
 #include <sys/wait.h>
 #include "token.c"
+#include "input.c"
+#include "prompt.c"
 
 #define MAX_INPUT_LENGTH 1024
 
