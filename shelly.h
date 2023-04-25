@@ -20,4 +20,11 @@ extern char **environ;
 
 int tokenize(char *input, char **args);
 
+void display_prompt(void);
+int read_input(char *input);
+void tokenize_input(char *input, char **args, int *argc);
+void execute_command(char **args);
+void handle_child_process(char **args);
+void handle_parent_process(pid_t pid);
+
 #endif /* _SHELLY_H_ */

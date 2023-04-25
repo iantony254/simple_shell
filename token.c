@@ -27,3 +27,33 @@ int tokenize(char *input, char **args)
 	args[argc] = NULL;
 	return (argc);
 }
+
+void tokenize_input(char *input, char **args, int *argc)
+{
+*argc = tokenize(input, args);
+if (*argc == -1)
+{
+printf("Error: Too many arguments!\n");
+}
+}
+
+void execute_command(char **args)
+{
+execvp(args[0], args);
+/* If execvp returns, there was an error */
+printf("Error: command not found\n");
+exit(EXIT_FAILURE);
+}
+
+void handle_child_process(char **args)
+{
+/* Child process */
+execute_command(args);
+}
+
+void handle_parent_process(pid_t pid)
+{
+/* Parent process */
+int status;
+waitpid(pid, &status, 0);
+}

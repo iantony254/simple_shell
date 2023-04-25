@@ -4,65 +4,47 @@
 
 #define MAX_INPUT_LENGTH 1024
 
+/**
+ * main- entry point of the program.
+ *
+ * Return:Always (0).
+ */
 int main(void)
 {
-	char input[MAX_INPUT_LENGTH];
-	char *args [MAX_ARGS + 1];
-
-	while (1)
-	{
-		/*Display prompt*/
-		printf("th3_m@tr!x_$ ");
-
-		/*Read input from user*/
-		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
-		{
-			/*Handle end of file condition*/
-			printf("\n");
-			break;
-		}
-		/* Remove trailing newline character*/
-		input[strcspn(input, "\n")] = '\0';
-
-		/* Check if the input given is the "exit" command */
-		if (strcmp(input, "exit") == 0)
-		{
-			/* Exit The Program */
-			printf("Exiting the matrix terminal...\n");
-			exit(EXIT_SUCCESS);
-		}
-
-		/*Tokenize input into command and arguments*/
-		int argc = tokenize(input, args);
-		if (argc == -1)
-		{
-			printf("Error: Too many Arguments!\n");
-			continue;
-		}
-
-		/*Fork process to execute command*/
-		pid_t pid = fork();
-
-		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			/*Child process*/
-			execvp(args[0], args);
-			/*If execvp returns, there was an error*/
-			printf("Error: command not found\n");
-			exit(EXIT_FAILURE);
-			}
-		else
-		{
-			/*Parent process*/
-			int status;
-
-			waitpid(pid, &status, 0);
-		}
-	}
-	return (0);
+char input[MAX_INPUT_LENGTH];
+char *args[MAX_ARGS + 1];
+int argc;
+while (1)
+{
+display_prompt();
+if (!read_input(input))
+{
+break;
+}
+if (strcmp(input, "exit") == 0)
+{
+/* Exit The Program */
+printf("Exiting the matrix terminal...\n");
+exit(EXIT_SUCCESS);
+}
+tokenize_input(input, args, &argc);
+if (argc != -1)
+{
+pid_t pid = fork();
+if (pid == -1)
+{
+perror("fork");
+exit(EXIT_FAILURE);
+}
+else if (pid == 0)
+{
+handle_child_process(args);
+}
+else
+{
+handle_parent_process(pid);
+}
+}
+}
+return (0);
 }
