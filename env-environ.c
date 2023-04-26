@@ -13,21 +13,19 @@
 
 int main(int argc, char *argv[])
 {
-	if (argc != 1)
-	{
-		/* Invalid Usage */
-		fprintf(stderr, "Usage: %s\n", argv[0]);
-		exit(EXIT_FAILURE);
-	}
-
-	/* Loop through the environment variables */
-	char **env = environ;
-
-	while (*env != NULL)
-	{
-		printf("%s/n", *env);
-		env++;
-	}
-
-	return (0);
+/*Declare variable at the beginning of the function*/
+char **env = environ;
+if (argc != 1)
+{
+/* Invalid Usage */
+fprintf(stderr, "Usage: %s\n", argv[0]);
+exit(EXIT_FAILURE);
+}
+ /* Loop through the environment variables */
+while (*env != NULL)
+{
+printf("%s/n", *env);
+env++;
+}
+return (0);
 }

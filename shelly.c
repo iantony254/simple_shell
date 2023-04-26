@@ -29,7 +29,7 @@ int main(void)
 {
 char input[MAX_INPUT_LENGTH];
 char *args[2];
-
+pid_t pid; /*Declare variable at the beginning*/
 while (1)
 {
 display_prompt();
@@ -38,7 +38,7 @@ if (!read_input(input))
 break;
 }
 parse_input(input, args);
-pid_t pid = fork();
+pid = fork(); /*assign value to the variable*/
 if (pid == -1)
 {
 perror("fork");

@@ -68,7 +68,7 @@ int main(void)
 {
 char input[MAX_INPUT_LENGTH];
 char *args[MAX_ARGS + 1];
-
+int argc; /*Declare variable at the beginning*/
 while (1)
 {
 /*Display prompt*/
@@ -96,7 +96,7 @@ handle_env_command();
 continue;
 }
 /*Tokenize input into command and arguments*/
-int argc = tokenize(input, args);
+argc = tokenize(input, args); /*assign value to variable*/
 if (argc == -1)
 {
 printf("Error: Too many Arguments!\n");

@@ -33,18 +33,21 @@ exit(EXIT_FAILURE);
 
 void handle_input(char input[])
 {
+/*Declare variables at the beginning of the function*/
+char *args[MAX_ARGS + 1];
+pid_t pid;
+int argc; /* move variable declaration to the beginning*/
 /* Remove trailing newline character*/
 input[strcspn(input, "\n")] = '\0';
 /*Tokenize input into command and arguments*/
-char *args[MAX_ARGS + 1];
-int argc = tokenize(input, args);
+argc = tokenize(input, args); /*assign value to argc after declaration*/
 if (argc == -1)
 {
 printf("Error: Too many Arguments!\n");
 return;
 }
 /*Fork process to execute command*/
-pid_t pid = fork();
+pid = fork();
 if (pid == -1)
 {
 perror("fork");
@@ -71,7 +74,6 @@ waitpid(pid, &status, 0);
 int main(void)
 {
 char input[MAX_INPUT_LENGTH];
-char *args[MAX_ARGS + 1];
 while (1)
 {
 /*Display prompt*/
