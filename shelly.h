@@ -27,4 +27,8 @@ void execute_command(char **args);
 void handle_child_process(char **args);
 void handle_parent_process(pid_t pid);
 
+void handle_exit_command(void);
+void handle_env_command(void);
+void fork_and_execute(char **args);
+
 #endif /* _SHELLY_H_ */
