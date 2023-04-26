@@ -31,4 +31,9 @@ void handle_exit_command(void);
 void handle_env_command(void);
 void fork_and_execute(char **args);
 
+void handle_input(char input[]);
+void get_input(char *input);
+void parse_input(char *input, char **args);
+void wait_for_child(pid_t pid);
+
 #endif /* _SHELLY_H_ */
