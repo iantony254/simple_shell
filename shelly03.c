@@ -3,6 +3,7 @@
 #include "token.c"
 #include "input.c"
 #include "prompt.c"
+#include "execute.c"
 
 #define MAX_INPUT_LENGTH 1024
 

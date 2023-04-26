@@ -1,54 +1,59 @@
 #include "shelly.h"
 #include <sys/wait.h>
+#include "prompt.c"
+#include "input.c"
+#include "execute.c"
+#include "token.c"
 
 #define MAX_INPUT_LENGTH 1024
 
+/**
+ * wait_for_child- Waits for the child process,
+ * with the given PID to finish.
+ * @pid: The process ID of the child process to wait for.
+ */
+
+void wait_for_child(pid_t pid)
+{
+int status;
+waitpid(pid, &status, 0);
+}
+
+/**
+ * main - Entry point of the shell program
+ *
+ * Return:Always (0)
+ */
+
 int main(void)
 {
-	char input[MAX_INPUT_LENGTH];
+char input[MAX_INPUT_LENGTH];
+char *args[2];
 
-	while (1)
-	{
-		/*Display prompt*/
-		printf("th3_m@tr!x_$ ");
-
-		/*Read input from user*/
-		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
-		{
-			/*Handle end of file condition*/
-			printf("\n");
-			break;
-		}
-		/* Remove trailing newline character*/
-		input[strcspn(input, "\n")] = '\0';
-
-		/*Tokenize input into command and arguments*/
-		args[0] = input;
-		args[1] = NULL;
-
-		/*Fork process to execute command*/
-		pid_t pid = fork();
-
-		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			/*Child process*/
-			execvp(args[0], args);
-			/*If execvp returns, there was an error*/
-			printf("Error: command not found\n");
-			exit(EXIT_FAILURE);
-			}
-		else
-		{
-			/*Parent process*/
-			int status;
-
-			waitpid(pid, &status, 0);
-		}
-	}
-	return (0);
+while (1)
+{
+display_prompt();
+if (!read_input(input))
+{
+break;
+}
+parse_input(input, args);
+pid_t pid = fork();
+if (pid == -1)
+{
+perror("fork");
+exit(EXIT_FAILURE);
+}
+else if (pid == 0)
+{
+/*Child process*/
+execute_command(args);
+}
+else
+{
+/*Parent process*/
+wait_for_child(pid);
+}
+}
+return (0);
 }

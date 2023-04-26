@@ -14,11 +14,11 @@ printf("th3_m@tr!x_$ ");
 }
 
 /**
- * read_input - Read input from user
+ * get_input - Read input from user
  * @input: Pointer to buffer where input will be stored
  */
 
-void read_input(char *input)
+void get_input(char *input)
 {
 if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
 {
@@ -29,12 +29,12 @@ input[strcspn(input, "\n")] = '\0';
 }
 
 /**
- * tokenize_input - Tokenize input into command and arguments
+ * parse_input - Tokenize input into command and arguments
  * @input: Pointer to input string
  * @args: Array of pointers to arguments
  */
 
-void tokenize_input(char *input, char **args)
+void parse_input(char *input, char **args)
 {
 char *token = strtok(input, " ");
 int i = 0;
@@ -85,8 +85,8 @@ char *args[MAX_ARGS];
 while (1)
 {
 display_prompt();
-read_input(input);
-tokenize_input(input, args);
+get_input(input);
+parse_input(input, args);
 execute_command(args);
 }
 return (0);
