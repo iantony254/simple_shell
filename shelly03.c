@@ -1,5 +1,5 @@
 #include "shelly.h"
-#include <sys/wait.h>
+/*#include <sys/wait.h>*/
 #include "token.c"
 #include "input.c"
 #include "prompt.c"
