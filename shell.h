@@ -12,7 +12,7 @@ extern char **environ;  /* Declare external environ variable */
 
 void display_prompt(void);
 int read_input(char *input);
-void tokenize_input(char *input, char **args, int *argc);
+int tokenize(char *input, char **args);
 int execute_command(char **args);
 void handle_child_process(char **args);
 void handle_exit_command(void);
