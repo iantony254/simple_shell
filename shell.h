@@ -10,16 +10,12 @@
 
 extern char **environ;  /* Declare external environ variable */
 
-void display_prompt(void);
-int read_input(char *input);
-int tokenize(char *input, char **args);
 int execute_command(char **args);
-void handle_child_process(char **args);
-void handle_exit_command(void);
-void handle_env_command(void);
-void handle_input(char input[]);
-void get_input(char *input);
+int read_input(char *input);
 void parse_input(char *input, char **args);
+void display_prompt(void);
+int tokenize(char *input, char **args);
+
 /* void print_aliases(void); */
 /* void print_alias(char *name); */
 /* void set_alias(char *name, char *value); */
