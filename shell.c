@@ -21,17 +21,13 @@ int main(void)
 	while (1)
 	{
 		/*Display prompt*/
-		printf("th3_m@tr!x_$ ");
+		display_prompt();
 
 		/*Read input from user*/
-		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
+		if (!read_input(input))
 		{
-			/*Handle end of file condition*/
-			printf("\n");
 			break;
 		}
-		/* Remove trailing newline character*/
-		input[strcspn(input, "\n")] = '\0';
 
 		/* Check if user entered "exit" command */
 		if (strcmp(args[0], "exit") == 0)
