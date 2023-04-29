@@ -20,5 +20,8 @@ char* get_path(char* cmd);
 int execute_command3(char** args);
 char* get_path2(char* cmd);
 int execute_command2(char** args);
+int execute_command4(char** args);
+char* get_path3(char* cmd);
+extern char **environ;
 
 #endif
