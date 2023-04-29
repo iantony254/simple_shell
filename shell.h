@@ -26,5 +26,7 @@ extern char **environ;
 
 char* custom_getline(void);
 
+int execute_command5(char** args);
+char* get_path4(char* cmd);
 
 #endif
