@@ -51,28 +51,52 @@ char** parse_input(char* line) {
 int execute_command(char** args) {
     pid_t pid, wpid;
     int status;
+    char* path = getenv("PATH");
+    char* token;
+    char* command_path = NULL;
+
+    /* Search for the command in the directories listed in the PATH environment variable*/
+    token = strtok(path, ":");
+    while (token != NULL) {
+        char* temp_path = malloc(strlen(token) + strlen(args[0]) + 2);
+        sprintf(temp_path, "%s/%s", token, args[0]);
+        if (access(temp_path, X_OK) == 0) {
+            command_path = temp_path;
+            break;
+        }
+        free(temp_path);
+        token = strtok(NULL, ":");
+    }
+
+    if (command_path == NULL) {
+      /* Command not found*/
+        fprintf(stderr, "Command not found: %s\n", args[0]);
+        return 1;
+    }
 
     pid = fork();
     if (pid == 0) {
-      /* Child process*/
+        /* Child process */
 
-        if (execvp(args[0], args) == -1) {
+        if (execve(command_path, args, NULL) == -1) {
             perror("Error");
         }
         exit(EXIT_FAILURE);
     } else if (pid < 0) {
-      /* Error forking */
-      perror("Error");
+        /* Error forking */
+        perror("Error");
     } else {
-      /* Parent process*/
+        /* Parent process */
 
         do {
             wpid = waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status) && wpid != -1);
     }
 
+    free(command_path);
     return 1;
 }
+
 
 void free_args(char** args) {
     int i = 0;
