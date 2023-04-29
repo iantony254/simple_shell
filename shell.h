@@ -27,9 +27,15 @@ extern char **environ;
 char* custom_getline(void);
 
 int execute_command5(char** args);
-char* get_path4(char* cmd);
+/*char* get_path4(char* cmd);*/
 
 char* get_path5(char* cmd);
 int execute_command6(char** args);
+
+char* read_input2(void);
+char** parse_input2(char* line);
+void free_args2(char** args);
+int main2();
+void display_prompt2(void);
 
 #endif

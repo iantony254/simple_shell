@@ -1,67 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <dirent.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "shell.h"
 
-#define MAX_PATH_LEN 4096
+#define TOKEN_DELIM " \t\r\n\a"
 
-char* get_path4(char* cmd) {
-    char* path = getenv("PATH");
-    char dir[MAX_PATH_LEN];
-    int i = 0;
-    struct stat sb;
-    char full_path[MAX_PATH_LEN];
-    while (*path) {
-        if (*path == ':') {
-            dir[i] = '\0';
-            i = 0;
-            if (snprintf(full_path, sizeof(full_path), "%s/%s", dir, cmd) >= MAX_PATH_LEN) {
-                fprintf(stderr, "Error: Path too long\n");
-                return NULL;
+void display_prompt2(void) {
+    printf("$ ");
+}
+
+char* read_input2(void) {
+    char* line = NULL;
+    size_t bufsize = 0;
+    getline(&line, &bufsize, stdin);
+    return line;
+}
+
+char** parse_input2(char* line) {
+    int bufsize = 64, position = 0;
+    char** tokens = malloc(bufsize * sizeof(char*));
+    char* token;
+
+    if (!tokens) {
+        fprintf(stderr, "Allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    while ((token = strchr(line, ' ')) != NULL) {
+        token[0] = '\0';
+        tokens[position] = line;
+        position++;
+
+        if (position >= bufsize) {
+            bufsize += 64;
+            tokens = realloc(tokens, bufsize * sizeof(char*));
+            if (!tokens) {
+                fprintf(stderr, "Allocation error\n");
+                exit(EXIT_FAILURE);
             }
-            if (stat(full_path, &sb) == 0 && sb.st_mode & S_IXUSR) {
-                char* res = malloc(strlen(full_path) + 1);
-                strcpy(res, full_path);
-                return res;
-            }
-        } else {
-            dir[i++] = *path;
         }
-        path++;
+
+        line = token + 1;
     }
-    dir[i] = '\0';
-    if (snprintf(full_path, sizeof(full_path), "%s/%s", dir, cmd) >= MAX_PATH_LEN) {
-        fprintf(stderr, "Error: Path too long\n");
-        return NULL;
-    }
-    if (stat(full_path, &sb) == 0 && sb.st_mode & S_IXUSR) {
-        char* res = malloc(strlen(full_path) + 1);
-        strcpy(res, full_path);
-        return res;
-    }
-    return NULL;
+
+    tokens[position] = line;
+    position++;
+
+    tokens[position] = NULL;
+    return tokens;
 }
 
 int execute_command5(char** args) {
     pid_t pid, wpid;
     int status;
 
-    char* cmd = args[0];
-    char* path = get_path4(cmd);
-    if (!path) {
-        printf("%s: Command not found\n", cmd);
-        return 1;
-    }
-
     pid = fork();
     if (pid == 0) {
         /* Child process*/
-        if (execve(path, args, NULL) == -1) {
+        if (execvp(args[0], args) == -1) {
             perror("Error");
         }
         exit(EXIT_FAILURE);
@@ -74,7 +75,34 @@ int execute_command5(char** args) {
             wpid = waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status) && wpid != -1);
     }
-    free(path);
+
     return 1;
+}
+
+void free_args2(char** args) {
+    int i = 0;
+    while (args[i] != NULL) {
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}
+
+int main2() {
+    char *input;
+    char **args;
+    int status;
+
+    do {
+        display_prompt();
+        input = read_input();
+        args = parse_input(input);
+        status = execute_command(args);
+
+        free(input);
+        free_args(args);
+    } while (status);
+
+    return 0;
 }
 
