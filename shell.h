@@ -38,4 +38,6 @@ void free_args2(char** args);
 int main2();
 void display_prompt2(void);
 
+int execute_command7(char** args);
+
 #endif
