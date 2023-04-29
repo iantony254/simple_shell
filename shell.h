@@ -26,10 +26,5 @@ extern char **environ;
 
 char* custom_getline(void);
 
-void display_prompt2(void);
-int read_input2(char* buffer);
-int split_input(char* input, char** args, int max_args);
-int execute_command5(char** args);
-int main2();
 
 #endif
