@@ -17,5 +17,8 @@ void free_args(char **args);
 void perror(const char *s);
 void exit(int status);
 char* get_path(char* cmd);
+int execute_command3(char** args);
+char* get_path2(char* cmd);
+int execute_command2(char** args);
 
 #endif
