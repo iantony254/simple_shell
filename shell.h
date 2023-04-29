@@ -16,5 +16,6 @@ void free_args(char **args);
 
 void perror(const char *s);
 void exit(int status);
+char* get_path(char* cmd);
 
 #endif
